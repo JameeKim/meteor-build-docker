@@ -38,24 +38,24 @@ Examples:
 
 For [Meteor], the list of supported versions is as follows.
 
-| [Meteor] Version |  Image Tags   |
-| :--------------: | :-----------: |
-|      1.9.2       | 1.9.2, 1.9, 1 |
-|      1.9.1       |     1.9.1     |
-|       1.9        |     1.9.0     |
-|      1.8.3       |  1.8.3, 1.8   |
-|      1.8.2       |     1.8.2     |
-|     1.8.0.2      |    1.8.0.2    |
-|     1.8.0.1      |    1.8.0.1    |
-|       1.8        |     1.8.0     |
+|  [Meteor] Version  |  Image Tags   |
+| :----------------: | :-----------: |
+| **1.9.2** (latest) | 1.9.2, 1.9, 1 |
+|       1.9.1        |     1.9.1     |
+|        1.9         |     1.9.0     |
+|       1.8.3        |  1.8.3, 1.8   |
+|       1.8.2        |     1.8.2     |
+|      1.8.0.2       |    1.8.0.2    |
+|      1.8.0.1       |    1.8.0.1    |
+|        1.8         |     1.8.0     |
 
 For [Debian], the default is stretch(9).
 
-| [Debian] Version | Version Number |    Image Tags    |
-| :--------------: | :------------: | :--------------: |
-|      buster      |       10       | buster, debian10 |
-|     stretch      |       9        | stretch, debian9 |
-|      jessie      |       8        | jessie, debian8  |
+|   [Debian] Version    | Version Number |    Image Tags    |
+| :-------------------: | :------------: | :--------------: |
+|        buster         |       10       | buster, debian10 |
+| **stretch** (default) |       9        | stretch, debian9 |
+|        jessie         |       8        | jessie, debian8  |
 
 ## Configuring Image Tags
 
