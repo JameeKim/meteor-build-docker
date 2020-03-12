@@ -3,13 +3,13 @@ name: Docker Publish
 on:
   push:
     branches: [ master ]
-    paths: 
+    paths:
       - "files/**/*"
       - "scripts/**/*"
       - "Dockerfile"
   pull_request:
     branches: [ master ]
-    paths: 
+    paths:
       - "files/**/*"
       - "scripts/**/*"
       - "Dockerfile"
@@ -22,11 +22,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
+      - uses: actions/cache@v1
+        id: cache
+        with:
+          path: /var/lib/docker
+          key: ${{ runner.os }}-docker-${{ github.ref }}
+
       - name: Build images
-        # TODO enable build of all images
         run: |
           pushd ./scripts
-          bash ./build.sh latest
+          bash ./build.sh
           popd
 
   push:
@@ -35,16 +41,28 @@ jobs:
     if: github.event_name == 'push'
     steps:
       - uses: actions/checkout@v2
+
+      - uses: actions/cache@v1
+        id: cache
+        with:
+          path: /var/lib/docker
+          key: ${{ runner.os }}-docker-${{ github.ref }}
+
       - name: Build images
-        # TODO enable build of all images
         run: |
           pushd ./scripts
-          bash ./build.sh latest
+          bash ./build.sh
           popd
+
       - name: Log into registry
         run: |
           echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
       - name: Push images
         run: |
           REPOSITORY=${{ secrets.DOCKERHUB_USERNAME }}/$IMAGE_NAME
           docker push $REPOSITORY
+
+      - name: Remove dangling images
+        run: |
+          docker rmi $(docker images -q -f dangling=true)
