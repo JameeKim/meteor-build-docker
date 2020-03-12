@@ -3,7 +3,7 @@ ARG DEBIAN_VERSION=stretch
 FROM debian:${DEBIAN_VERSION}
 
 RUN apt-get update && \
-    apt-get install -y wget sudo \
+    apt-get install -y wget sudo && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     groupadd -g 1000 meteor && \

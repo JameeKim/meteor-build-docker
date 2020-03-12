@@ -1,0 +1,42 @@
+name: Docker Publish
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+env:
+  IMAGE_NAME: meteor-builder
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build images
+        # TODO enable build of all images
+        run: |
+          pushd ./scripts
+          bash ./build.sh latest
+          popd
+
+  push:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build images
+        # TODO enable build of all images
+        run: |
+          pushd ./scripts
+          bash ./build.sh latest
+          popd
+      - name: Log into registry
+        run: |
+          echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+      - name: Push images
+        run: |
+          REPOSITORY=${{ secrets.DOCKERHUB_USERNAME }}/$IMAGE_NAME
+          docker push $REPOSITORY

@@ -58,7 +58,7 @@ for_each_ver() {
     fi
 
     # echo ${TAGS[@]}
-    docker build ${BUILD_ARGS[@]/#/"--build-arg "} ${TAGS[@]/#/"-t ${DOCKER_REPO}:"} .
+    docker build ${BUILD_ARGS[@]/#/"--build-arg "} ${TAGS[@]/#/"-t ${DOCKER_REPO}:"} ..
 
     PREV_VER=$METEOR
     PREV_MAIN=$MAIN
