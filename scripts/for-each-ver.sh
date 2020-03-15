@@ -11,8 +11,8 @@ source ./vars.sh
 for METEOR in "${METEOR_VERSIONS[@]}"; do
     echo "Meteor version ${METEOR}"
 
-    local i=0
-    local length=${#DEBIAN_VERSIONS[@]}
+    i=0
+    length=${#DEBIAN_VERSIONS[@]}
 
     while [ $i -lt $length ]; do
         for_each_ver $METEOR ${DEBIAN_VERSIONS[$i]} ${DEBIAN_NUM_VERSIONS[$i]}

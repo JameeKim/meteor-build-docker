@@ -34,7 +34,7 @@ for_each_ver() {
     local BUILD_ARGS=("METEOR_VERSION=$METEOR" "DEBIAN_VERSION=$DEBIAN")
 
     # image tags
-    local TAGS=${DEBIANS[@]/#/"$METEOR-"}
+    local TAGS=(${DEBIANS[@]/#/"$METEOR-"})
     if [ $NEW_MAIN -gt 0 ]; then
         TAGS=(${TAGS[@]} ${DEBIANS[@]/#/"$MAIN-"})
     fi
@@ -57,7 +57,7 @@ for_each_ver() {
         fi
     fi
 
-    # echo ${TAGS[@]}
+    # echo "docker build ${BUILD_ARGS[@]/#/"--build-arg "} ${TAGS[@]/#/"-t ${DOCKER_REPO}:"} .."
     docker build ${BUILD_ARGS[@]/#/"--build-arg "} ${TAGS[@]/#/"-t ${DOCKER_REPO}:"} ..
 
     PREV_VER=$METEOR
